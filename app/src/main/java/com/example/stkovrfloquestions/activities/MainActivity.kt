@@ -1,8 +1,9 @@
-package com.example.stkovrfloquestions
+package com.example.stkovrfloquestions.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
+import com.example.stkovrfloquestions.R
 import com.example.stkovrfloquestions.utils.FragmentListener
 
 class MainActivity: AppCompatActivity(), FragmentListener {
@@ -20,7 +21,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
      * Fragment Listener Methods
      */
 
-    override fun navigateFragment(actionID: Int?, destination: Int?) {
+    override fun navigateFragment(actionID: Int?, destination: Int?, bundle: Bundle?) {
         val controller = Navigation.findNavController(findViewById(R.id.host_fragment))
         if (actionID == null) {
             if (destination != null) {
@@ -30,7 +31,7 @@ class MainActivity: AppCompatActivity(), FragmentListener {
             }
         } else {
             try {
-                controller.navigate(actionID)
+                controller.navigate(actionID, bundle)
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
             }

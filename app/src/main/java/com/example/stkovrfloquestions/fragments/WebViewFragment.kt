@@ -29,6 +29,10 @@ class WebViewFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            val safeArgs = WebViewFragmentArgs.fromBundle(it)
+            url = safeArgs.quesUrl
+        }
         setUpUI()
     }
 

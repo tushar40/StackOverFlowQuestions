@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.stkovrfloquestions.R
 import com.example.stkovrfloquestions.adapters.QuestionsAdapter
 import com.example.stkovrfloquestions.databinding.FragmentQuestionsBinding
 import com.example.stkovrfloquestions.models.Item
@@ -15,7 +16,7 @@ import com.example.stkovrfloquestions.viewmodels.QuestionsViewModel
 import com.example.stkovrfloquestions.utils.FragmentListener
 import kotlinx.android.synthetic.main.fragment_questions.*
 
-class QuestionsFragment: Fragment() {
+class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
 
     /**
      * Member variables
@@ -26,7 +27,7 @@ class QuestionsFragment: Fragment() {
         activity as FragmentListener
     }
     private val tweetsAdapter by lazy {
-        QuestionsAdapter()
+        QuestionsAdapter(this)
     }
 
     /**
@@ -49,6 +50,15 @@ class QuestionsFragment: Fragment() {
     }
 
     /**
+     * QuestionsAdapter.OnItemClickListener Method
+     */
+
+    override fun onItemClicked(url: String) {
+        val args = WebViewFragmentArgs.Builder(url).build().toBundle()
+        callback.navigateFragment(R.id.action_questionsFragment_to_webViewFragment, null, args)
+    }
+
+    /**
      * Custom Methods
      */
 
@@ -68,5 +78,4 @@ class QuestionsFragment: Fragment() {
     private fun showQuestions(questions: List<Item>) {
         tweetsAdapter.submitList(questions)
     }
-
 }

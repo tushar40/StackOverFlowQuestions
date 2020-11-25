@@ -12,7 +12,11 @@ import com.example.stkovrfloquestions.R
 import com.example.stkovrfloquestions.models.Item
 import com.example.stkovrfloquestions.utils.QuestionsDiffCallback
 
-class QuestionsAdapter: ListAdapter<Item, QuestionsAdapter.ViewHolder>(QuestionsDiffCallback()) {
+class QuestionsAdapter(private val itemClickListener: OnItemClickListener): ListAdapter<Item, QuestionsAdapter.ViewHolder>(QuestionsDiffCallback()) {
+
+    interface OnItemClickListener {
+        fun onItemClicked(url: String)
+    }
 
     /**
      * RecyclerView Adapter Methods
@@ -25,7 +29,7 @@ class QuestionsAdapter: ListAdapter<Item, QuestionsAdapter.ViewHolder>(Questions
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), itemClickListener)
     }
 
     /**
@@ -40,30 +44,36 @@ class QuestionsAdapter: ListAdapter<Item, QuestionsAdapter.ViewHolder>(Questions
 
         private var profileImageView: ImageView? = null
         private var nameTextView: TextView? = null
-        private var handleTextView: TextView? = null
-        private var retweetsTextView: TextView? = null
-        private var favouritesTextView: TextView? = null
-        private var tweetTextTextView: TextView? = null
+        private var userTypeTextView: TextView? = null
+        private var answersCountTextView: TextView? = null
+        private var viewCountTextView: TextView? = null
+        private var titleTextView: TextView? = null
+        private var tagsTextView: TextView? = null
         private var context: Context? = null
 
         init {
             nameTextView = itemView.findViewById(R.id.textView_name)
-            handleTextView = itemView.findViewById(R.id.textView_handle)
-            retweetsTextView = itemView.findViewById(R.id.textView_retweets)
-            favouritesTextView = itemView.findViewById(R.id.textView_fav)
-            tweetTextTextView = itemView.findViewById(R.id.textView_tweet)
+            userTypeTextView = itemView.findViewById(R.id.textView_user_type)
+            answersCountTextView = itemView.findViewById(R.id.textView_answers_count)
+            viewCountTextView = itemView.findViewById(R.id.textView_view_count)
+            titleTextView = itemView.findViewById(R.id.textView_title)
+            tagsTextView = itemView.findViewById(R.id.textView_tags)
             profileImageView = itemView.findViewById(R.id.imageView_profile_image)
             context = parent.context
         }
 
-        fun bind(question: Item) {
+        fun bind(question: Item, clickListener: OnItemClickListener) {
             nameTextView?.text = question.owner.display_name
-            handleTextView?.text = question.owner.user_type
-            retweetsTextView?.text = question.answer_count.toString()
-            favouritesTextView?.text = question.view_count.toString()
-            tweetTextTextView?.text = question.title
-
+            userTypeTextView?.text = question.owner.user_type
+            answersCountTextView?.text = question.answer_count.toString()
+            viewCountTextView?.text = question.view_count.toString()
+            titleTextView?.text = question.title
+            tagsTextView?.text = context?.getString(R.string.tags, question.tags.reduce {a, b -> a + ", "+ b})
             loadImage(question.owner.profile_image)
+
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(question.link)
+            }
         }
 
         private fun loadImage(url: String) {

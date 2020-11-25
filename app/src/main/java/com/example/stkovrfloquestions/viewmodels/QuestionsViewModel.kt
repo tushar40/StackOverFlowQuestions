@@ -1,9 +1,8 @@
 package com.example.stkovrfloquestions.viewmodels
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.stkovrfloquestions.QuestionRepository
+import com.example.stkovrfloquestions.repositories.QuestionRepository
 import kotlinx.coroutines.launch
 
 class QuestionsViewModel: ViewModel() {
