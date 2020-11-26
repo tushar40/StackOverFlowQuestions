@@ -4,9 +4,9 @@ A native Android app that displays a list of recent Stack Overflow questions tha
 - have an accepted answer, and
 - contain more than one answer
 
-​![alt text](https://github.com/tushar40/TWSearchClient/blob/master/readme-images/splash.png)
-​![alt text](https://github.com/tushar40/TWSearchClient/blob/master/readme-images/home.png)
-​![alt text](https://github.com/tushar40/TWSearchClient/blob/master/readme-images/home.png)
+​![alt text](https://github.com/tushar40/StackOverFlowQuestions/blob/master/readme-images/splash_screen.png)
+​![alt text](https://github.com/tushar40/StackOverFlowQuestions/blob/master/readme-images/questions_screen.png)
+​![alt text](https://github.com/tushar40/StackOverFlowQuestions/blob/master/readme-images/webview_screen.png)
 
 
 This project is built using Kotlin and AndroidX.
