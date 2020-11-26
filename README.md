@@ -26,7 +26,7 @@ This project is built using Kotlin and AndroidX.
 ### Clone the Repository
 
 ```
-$ git clone git@github.com:tushar40/TWSearchClient.git
+$ git clone https://github.com/tushar40/StackOverFlowQuestions.git
 ```
 
 ### Open and Run Project in Android Studio
