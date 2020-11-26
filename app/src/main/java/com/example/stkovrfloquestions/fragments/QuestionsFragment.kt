@@ -81,15 +81,24 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
         recyclerView_questions.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = tweetsAdapter
+            setHasFixedSize(true)
         }
 
-        questionsViewModel.getQuestions()
-        showLoading()
+        swipeRefreshLayout.setOnRefreshListener {
+            reload()
+            swipeRefreshLayout.isRefreshing = false
+        }
+
+        reload()
 
         button_reload.setOnClickListener {
-            questionsViewModel.getQuestions()
-            showLoading()
+            reload()
         }
+    }
+
+    private fun reload() {
+        questionsViewModel.getQuestions()
+        showLoading()
     }
 
     private fun showQuestions(questions: List<Item>?) {
