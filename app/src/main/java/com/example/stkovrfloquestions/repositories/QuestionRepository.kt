@@ -7,6 +7,8 @@ import com.example.stkovrfloquestions.api.APIInterface
 import com.example.stkovrfloquestions.api.StackOverFlowClient
 import com.example.stkovrfloquestions.models.Item
 import com.example.stkovrfloquestions.utils.Constants
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,8 +21,6 @@ object QuestionRepository {
     private val LOG_TAG = QuestionRepository::class.simpleName
     private lateinit var tweetsApi: APIInterface
 
-    val questionsData = MutableLiveData<List<Item>>()
-
     /**
      * Member functions
      */
@@ -29,7 +29,7 @@ object QuestionRepository {
         tweetsApi = StackOverFlowClient.getApi(context)
     }
 
-    suspend fun getQuestions(minAnswers: Int) {
+    suspend fun getQuestions(minAnswers: Int) = flow {
         val response = tweetsApi.getTweets(
             order = Constants.order,
             sort = Constants.sort,
@@ -39,8 +39,9 @@ object QuestionRepository {
         )
 
         if (response.isSuccessful && response.body() != null) {
-            questionsData.postValue(response.body()!!.items)
+            emit(response.body()!!.items)
         } else {
+            emit(null)
             Log.e(LOG_TAG, "couldn't get the data, error: ${response.message()}")
         }
     }

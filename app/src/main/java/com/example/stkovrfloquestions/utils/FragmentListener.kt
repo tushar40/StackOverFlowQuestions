@@ -4,4 +4,5 @@ import android.os.Bundle
 
 interface FragmentListener {
     fun navigateFragment(actionID: Int?, destination: Int?, bundle: Bundle?)
+    fun makeToast(message: String)
 }

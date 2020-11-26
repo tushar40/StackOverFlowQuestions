@@ -2,6 +2,7 @@ package com.example.stkovrfloquestions.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.stkovrfloquestions.R
 import com.example.stkovrfloquestions.utils.FragmentListener
@@ -36,5 +37,9 @@ class MainActivity: AppCompatActivity(), FragmentListener {
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun makeToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 }
