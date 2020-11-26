@@ -7,4 +7,5 @@ object Constants {
     const val sort = "activity"
     const val accepted = "True"
     const val site = "stackoverflow"
+    const val cacheSize = 5 * 1024 * 1024L
 }

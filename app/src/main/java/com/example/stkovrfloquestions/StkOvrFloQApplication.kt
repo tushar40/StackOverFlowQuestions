@@ -12,6 +12,6 @@ class StkOvrFloQApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        QuestionRepository.initRepository()
+        QuestionRepository.initRepository(applicationContext)
     }
 }

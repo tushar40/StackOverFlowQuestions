@@ -1,5 +1,6 @@
 package com.example.stkovrfloquestions.repositories
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.stkovrfloquestions.api.APIInterface
@@ -22,8 +23,8 @@ object QuestionRepository {
      * Member functions
      */
 
-    fun initRepository() {
-        tweetsApi = StackOverFlowClient.getApi()
+    fun initRepository(context: Context) {
+        tweetsApi = StackOverFlowClient.getApi(context)
     }
 
     suspend fun getQuestions(minAnswers: Int) {
