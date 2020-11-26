@@ -50,6 +50,20 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
         setUpUI()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        questionsViewModel.questionData.observe(viewLifecycleOwner, Observer { questions ->
+            showQuestions(questions)
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        questionsViewModel.questionData.removeObservers(viewLifecycleOwner)
+    }
+
     /**
      * QuestionsAdapter.OnItemClickListener Method
      */
@@ -70,16 +84,40 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
         }
 
         questionsViewModel.getQuestions()
+        showLoading()
 
-        questionsViewModel.questionData.observe(viewLifecycleOwner, Observer { questions ->
-            showQuestions(questions)
-        })
+        button_reload.setOnClickListener {
+            questionsViewModel.getQuestions()
+            showLoading()
+        }
     }
 
     private fun showQuestions(questions: List<Item>?) {
-        if (questions == null)
+        if (questions == null) {
+            showEmpty()
             callback.makeToast("Couldn't fetch the details")
+        } else {
+            showList()
+        }
 
         tweetsAdapter.submitList(questions)
+    }
+
+    private fun showLoading() {
+        loadingView.visibility = View.VISIBLE
+        cardView_empty.visibility = View.GONE
+        recyclerView_questions.visibility = View.GONE
+    }
+
+    private fun showEmpty() {
+        loadingView.visibility = View.GONE
+        cardView_empty.visibility = View.VISIBLE
+        recyclerView_questions.visibility = View.GONE
+    }
+
+    private fun showList() {
+        loadingView.visibility = View.GONE
+        cardView_empty.visibility = View.GONE
+        recyclerView_questions.visibility = View.VISIBLE
     }
 }
