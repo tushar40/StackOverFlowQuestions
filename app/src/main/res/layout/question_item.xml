@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintVertical_bias="0.9"
-            tools:text="\@John_Doe" />
+            tools:text="01-01-2020" />
 
         <ImageView
             android:id="@+id/fav_icon"
@@ -142,12 +142,14 @@
 
         <TextView
             android:id="@+id/textView_tags"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@color/colorAccent"
             android:minLines="1"
             android:padding="8dp"
+            android:layout_margin="8dp"
             android:textSize="@dimen/handle_text_size"
             app:layout_constrainedWidth="true"
             app:layout_constrainedHeight="true"
