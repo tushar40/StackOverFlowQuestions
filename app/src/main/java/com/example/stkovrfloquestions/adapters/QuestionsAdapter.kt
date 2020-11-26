@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.stkovrfloquestions.R
 import com.example.stkovrfloquestions.models.Item
 import com.example.stkovrfloquestions.utils.QuestionsDiffCallback
+import java.text.SimpleDateFormat
+import java.util.*
 
 class QuestionsAdapter(private val itemClickListener: OnItemClickListener): ListAdapter<Item, QuestionsAdapter.ViewHolder>(QuestionsDiffCallback()) {
 
@@ -41,19 +43,22 @@ class QuestionsAdapter(private val itemClickListener: OnItemClickListener): List
             R.layout.question_item, parent, false
         )
     ) {
-
         private var profileImageView: ImageView? = null
         private var nameTextView: TextView? = null
-        private var userTypeTextView: TextView? = null
+        private var dateCreatedTextView: TextView? = null
         private var answersCountTextView: TextView? = null
         private var viewCountTextView: TextView? = null
         private var titleTextView: TextView? = null
         private var tagsTextView: TextView? = null
         private var context: Context? = null
+        private val formatter by lazy {
+            val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
+            formatter
+        }
 
         init {
             nameTextView = itemView.findViewById(R.id.textView_name)
-            userTypeTextView = itemView.findViewById(R.id.textView_user_type)
+            dateCreatedTextView = itemView.findViewById(R.id.textView_date_created)
             answersCountTextView = itemView.findViewById(R.id.textView_answers_count)
             viewCountTextView = itemView.findViewById(R.id.textView_view_count)
             titleTextView = itemView.findViewById(R.id.textView_title)
@@ -64,7 +69,7 @@ class QuestionsAdapter(private val itemClickListener: OnItemClickListener): List
 
         fun bind(question: Item, clickListener: OnItemClickListener) {
             nameTextView?.text = question.owner.display_name
-            userTypeTextView?.text = question.owner.user_type
+            dateCreatedTextView?.text = getDateString(question.creation_date)
             answersCountTextView?.text = question.answer_count.toString()
             viewCountTextView?.text = question.view_count.toString()
             titleTextView?.text = question.title
@@ -82,6 +87,10 @@ class QuestionsAdapter(private val itemClickListener: OnItemClickListener): List
                 .load(url)
                 .placeholder(R.drawable.ic_person_24dp)
                 .into(profileImageView!!)
+        }
+
+        private fun getDateString(timestamp: Int): String? {
+            return formatter.format(Date(timestamp.toLong()))
         }
     }
 }
