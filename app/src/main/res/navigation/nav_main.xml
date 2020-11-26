@@ -21,7 +21,8 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_questionsFragment"
-            app:destination="@id/questionsFragment" />
+            app:destination="@id/questionsFragment"
+            app:popUpTo="@id/nav_main" />
     </fragment>
     <fragment
         android:id="@+id/questionsFragment"

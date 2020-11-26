@@ -41,7 +41,7 @@ class SplashFragment: Fragment() {
      * Custom Methods
      */
 
-    fun gotoQuestionsFragment() {
+    private fun gotoQuestionsFragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             callback.navigateFragment(R.id.action_splashFragment_to_questionsFragment, null, null)
         }, SPLASH_DELAY)
