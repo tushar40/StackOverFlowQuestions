@@ -47,21 +47,13 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpUI()
-    }
 
-    override fun onStart() {
-        super.onStart()
+        setUpUI()
+        reload()
 
         questionsViewModel.questionData.observe(viewLifecycleOwner, Observer { questions ->
             showQuestions(questions)
         })
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        questionsViewModel.questionData.removeObservers(viewLifecycleOwner)
     }
 
     /**
@@ -89,8 +81,6 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
             swipeRefreshLayout.isRefreshing = false
         }
 
-        reload()
-
         button_reload.setOnClickListener {
             reload()
         }
@@ -112,21 +102,9 @@ class QuestionsFragment: Fragment(), QuestionsAdapter.OnItemClickListener {
         tweetsAdapter.submitList(questions)
     }
 
-    private fun showLoading() {
-        loadingView.visibility = View.VISIBLE
-        cardView_empty.visibility = View.GONE
-        recyclerView_questions.visibility = View.GONE
-    }
+    private fun showLoading() = questionsViewModel.showLoading()
 
-    private fun showEmpty() {
-        loadingView.visibility = View.GONE
-        cardView_empty.visibility = View.VISIBLE
-        recyclerView_questions.visibility = View.GONE
-    }
+    private fun showEmpty() = questionsViewModel.showEmpty()
 
-    private fun showList() {
-        loadingView.visibility = View.GONE
-        cardView_empty.visibility = View.GONE
-        recyclerView_questions.visibility = View.VISIBLE
-    }
+    private fun showList() = questionsViewModel.showList()
 }

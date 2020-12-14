@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.stkovrfloquestions.R
+import com.example.stkovrfloquestions.appwidgets.StkOvrFloAppWidgetProvider
+import com.example.stkovrfloquestions.fragments.WebViewFragmentArgs
 import com.example.stkovrfloquestions.utils.FragmentListener
 
 class MainActivity: AppCompatActivity(), FragmentListener {
@@ -16,6 +18,13 @@ class MainActivity: AppCompatActivity(), FragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val url = intent.extras?.getString(StkOvrFloAppWidgetProvider.EXTRA_ITEM)
+        if (url != null) {
+            navigateFragment(R.id.action_splashFragment_to_questionsFragment, null, null)
+            val args = WebViewFragmentArgs.Builder(url).build().toBundle()
+            navigateFragment(R.id.action_questionsFragment_to_webViewFragment, null, args)
+        }
     }
 
     /**
