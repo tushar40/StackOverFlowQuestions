@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.collect
 
 
 class StackWidgetService : RemoteViewsService() {
+
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return StackRemoteViewsFactory(this.applicationContext, intent)
     }
